@@ -22,28 +22,54 @@ router.route("/register").post(upload.single("image"), async(req, res) => {
   console.log("sfdsadasdf");
   let { name, address, pass } = req.body;
   console.log(name);
-  const plainPassword = pass;
-  const saltRounds = 10;
-  var encrptedPass;
-  await bcrypt.hash(plainPassword, saltRounds, (err, hash) => {
-    if (err) {
-      console.error(err);
-    } else {
-        encrptedPass = hash;
-        console.log("Bcrypt hash:", encrptedPass);
-    }
-  });
+//   const plainPassword = pass;
+//   const saltRounds = 10;
+//   var encrptedPass;
+  const hashedPassword = await bcrypt.hash(pass, 10);
+//   await bcrypt.hash(plainPassword, saltRounds, (err, hash) => {
+//     if (err) {
+//       console.error(err);
+//     } else {
+//         encrptedPass = hash;
+//         console.log("Bcrypt hash:", encrptedPass);
+//     }
+//   });
   console.log("hi");
 
   // console.log(req.file);
   let data = new USER({
     name,
-    password: pass,
+    password: hashedPassword,
     address,
     image: req.file.originalname,
   });
   console.log("user=", data);
   data.save();
 });
+
+router.post("/login", async(req, res) => {
+    console.log('body=',req.body); 
+    let data=await USER.findOne({name:req.body.name})
+    console.log("database",data); 
+    try {
+        if(data !=null){
+            const validPassword = await bcrypt.compare(req.body.password,data.password);
+            console.log('valis=',validPassword);
+            if (validPassword) {
+                console.log("right pass");
+                res.send(true)
+            }else{  
+                console.log("wrong ");
+            } 
+        }else{
+            res.send(false)
+        } 
+    } catch (error) {
+        
+    }
+    // res.send(false)
+    // console.log(data);
+  });
+  
 
 module.exports = router;

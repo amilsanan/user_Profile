@@ -127,8 +127,7 @@ export default function Home() {
     formData.append("address", address);
     formData.append("pass", password);
 
-    axios
-      .post("http://localhost:5000/register", formData)
+    axios.post("http://localhost:5000/register", formData)
       .then((response) => {
         console.log(response.data);
       })
