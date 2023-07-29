@@ -1,12 +1,9 @@
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import LandingPage from './pages/LandingPage'
+import Home from './components/Home'
 import Login from './components/Login'
-import Signup from './components/Signup'
-// import AdminHomePage from './adminPages/AdminHomePage'
-// import AdminProductAdd from './adminComponents/AdminProductAdd'
-// import Products from './components/Products'
-// import SingleProduct from './components/SingleProduct'
+import Profile from './components/Profile'
+
 
 function App() {
   
@@ -15,13 +12,12 @@ function App() {
     <>
     <BrowserRouter>
      <Routes>
-     <Route exact path='/' element={<LandingPage/>} />
+     <Route exact path='/' element={<Home/>} />
      <Route  exact path='/login' element={ <Login/> } />
-     <Route  exact path='/signup' element={ <Signup/> } />
-     {/* <Route  exact path='/admin' element={ <AdminHomePage/> } /> */}
-     {/* <Route  exact path='/admin/addProduct' element={ <AdminProductAdd/> } />
-     <Route  exact path='/showPro' element={ <Products/> } />
-     <Route  exact path='/singleProduct' element={ <SingleProduct/> } /> */}
+     <Route  exact path='/profile' element={ <Profile/> } />
+     {/* <Route  exact path='/signup' element={ <Signup/> } /> */}
+ 
+     {/* <Route  exact path='/asd' element={ <SingleProduct/> } /> */}
      
      </Routes>
      </BrowserRouter>
