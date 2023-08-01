@@ -45,6 +45,7 @@ router.route("/register").post(upload.single("image"), async(req, res) => {
   });
   console.log("user=", data);
   data.save();
+  res.send(true)
 });
 
 router.post("/login", async(req, res) => {
@@ -57,7 +58,7 @@ router.post("/login", async(req, res) => {
             console.log('valis=',validPassword);
             if (validPassword) {
                 console.log("right pass");
-                res.send(true)
+                res.json({meassage:true,id:data._id})
             }else{  
                 console.log("wrong ");
             } 
@@ -69,6 +70,14 @@ router.post("/login", async(req, res) => {
     }
     // res.send(false)
     // console.log(data);
+  });
+
+  router.get("/getuser/:id", async(req, res) => {
+      console.log(req.params);
+      let id =req.params.id
+      let data = await USER.findOne({_id:id})
+      console.log(data);
+      res.json(data)
   });
   
 

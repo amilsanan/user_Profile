@@ -4,6 +4,7 @@ import axios from "axios";
 import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
 
+
 export default function Home() {
   let nav = useNavigate();
 
@@ -130,6 +131,9 @@ export default function Home() {
     axios.post("http://localhost:5000/register", formData)
       .then((response) => {
         console.log(response.data);
+        if(response.data){
+          nav('/login')
+        }
       })
       .catch((error) => {
         console.error(error);

@@ -17,8 +17,8 @@ function Login() {
         // console.log(e);
         axios.post("http://localhost:5000/login",data).then((res)=>{
             console.log(res.data);
-            if(res.data){
-                nav('/profile')
+            if(res.data.meassage==true){
+                nav(`/profile/${res.data.id}`)
             }
         })
     }
